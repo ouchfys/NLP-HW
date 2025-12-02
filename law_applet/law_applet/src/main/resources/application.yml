@@ -1,0 +1,61 @@
+mybatis:
+  type-aliases-package: cn.cy.entity
+  mapper-locations: classpath*:mapper/**/*.xml
+
+spring:
+  profiles:
+    active: dev
+  datasource:
+    url: jdbc:mysql://154.221.19.189:4407/law_applet?serverTimezone=GMT%2b8&useUnicode=true&characterEncoding=utf8
+    username: root
+    password: root_redisson
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+  ai:
+    ollama:
+      base-url: http://localhost:11434
+      chat:
+        options:
+          temperature: 0.7
+          model: qwen2.5:7b
+        model: qwen2.5:7b
+        enabled: true
+
+server:
+  port: 8088
+  servlet:
+    encoding:
+      charset: utf-8
+
+config:
+  arcface-sdk:
+    version: 3.0
+    app-id: 42fVrCA5jppqAx5jtHdHcAkUM1PMaRc2F2cWDaiYp6Uy
+    sdk-key: GkpAvJQUiTuf5pQAXuDzBJ54wQEFnArJvEAQNMdFFRHL
+    active_key:
+    detect-pool-size: 5
+    compare-pool-size: 5
+
+
+knife4j:
+  enable: true
+  openapi:
+    title: 接口文档
+    description: "接口文档生成"
+    email: ""
+    concat: admin
+    url: ""
+    version: v4.0
+    license: Apache 2.0
+    license-url: https://stackoverflow.com/
+    terms-of-service-url: https://stackoverflow.com/
+    group:
+      test1:
+        group-name: 分组名称
+        api-rule: package
+        api-rule-resources:
+          - com.example.controller
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+upload: C:\\Users\\付同学\\Desktop\\law_applet\\law_applet\\law_applet\\src\\main\\resources\\static\\upload\\

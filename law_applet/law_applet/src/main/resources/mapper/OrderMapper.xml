@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.OrderMapper">
+
+    <select id="orderPage" resultType="com.example.vo.OrderVO">
+        select to2.*,COALESCE(t_unread.unread_num, 0) AS unread_num, tc.id as comment_id from t_order to2
+            left join t_comment tc on tc.order_id = to2.id
+             left join
+                 (
+                    select order_no,count(*) as unread_num
+                    from t_message tm
+                    <where>
+                        tm.status = 0
+                        <if test="param2.lawyerUserId != null">
+                            and tm.receive_user_id = #{param2.lawyerUserId}
+                        </if>
+                        <if test="param2.userId != null">
+                            and tm.receive_user_id = #{param2.userId}
+                        </if>
+                    </where>
+                    group by order_no
+                 ) as t_unread
+             on to2.order_no = t_unread.order_no
+        <where>
+            <if test="param2.status != null">
+                and to2.status = #{param2.status}
+            </if>
+            <if test="param2.lawyerUserId != null">
+                and to2.lawyer_user_id = #{param2.lawyerUserId}
+            </if>
+            <if test="param2.userId != null">
+                and to2.user_id = #{param2.userId}
+            </if>
+        </where>
+
+    </select>
+
+</mapper>
